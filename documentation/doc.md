@@ -2,7 +2,7 @@ Introduction
 ------------
 This is an application of a genetic algorithm to the *Infinite monkey theorem*.
 
-Open this [link](https://en.wikipedia.org/wiki/Infinite_monkey_theorem) for more information on the theorem.
+Open this [link](https://en.wikipedia.org/wiki/Infinite_monkey_theorem) for more information about the theorem.
 
 
 ## Concepts:
@@ -20,37 +20,35 @@ The Algorithm
 
 Individual class
 ----------------
-This class creates a list populated with random keys defined globally as KEYS, which is a string containing all the possible usable keys, and calculates the fitness of each list.
-A list is called an Individual.
+This class creates a list populated with random keys coming from a defined range of characters and calculates the fitness of each list. A list is called an Individual.
 
 Population
 ----------------
-This class creates a list containing a defined number (POPULATION_SIZE) of Individual objects
+This class creates a list containing a defined number (POPULATION_SIZE) of Individual objects.
 
 The Algorithm itself
 --------------------
-'def selectTournamentPopulation(self, pop):'
+`def selectTournamentPopulation(self, pop):`
 
 This function consists of making a tournament (a race) between Individuals based on their fitness. The winners will be chosen for reproduction.
 
 
-'def reproduction(self, pop):'
+`def reproduction(self, pop):`
 This function generates new Individuals from 2 parents
 
 
-'def crossover(self, parentA, parentB):'
+`def crossover(self, parentA, parentB):`
 This function is related to reproduction. It is indeed a crossover of genes between 2 parents to generate a child with genetic material coming from the parents. 
 
 
-'def mutate(self, pop):'
+`def mutate(self, pop):`
 This function changes randomly the genetic material of an Individual
 
-'def evolve(self, pop):'
+`def evolve(self, pop):`
 It evolves the population calling the previous functions
 
 ## Info
 Written by: **Leonardo Folgoni**
 
-Feel free to play with this code and to criticize my work by giving me advices. Just please don't be rude
 
 

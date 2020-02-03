@@ -1,4 +1,8 @@
 import random
+from displayBanner import displayBanner, choice
+
+displayBanner()
+choice()
 
 TARGET = "genetic algorithm"
 INDIVIDUAL_SIZE = TARGET.__len__()
@@ -111,3 +115,5 @@ while population.getPopulation()[0].calculateFitness() < 1:
 	population.getPopulation().sort(key = lambda x: x.calculateFitness(), reverse = True)
 	printPopulation(population, generationNumber)
 	generationNumber += 1
+
+print("Simulation terminated, target reached")
