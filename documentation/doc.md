@@ -50,6 +50,7 @@ It evolves the population calling the previous functions
 
 ## Info
 Written by: **Leonardo Folgoni**
+
 Feel free to play with this code and to criticize my work by giving me advices. Just please don't be rude
 
 
