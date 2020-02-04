@@ -4,7 +4,7 @@ from displayBanner import displayBanner, choice
 
 
 TARGET = "genetic algorithm"
-INDIVIDUAL_SIZE = TARGET.__len__()
+INDIVIDUAL_SIZE = len(TARGET)
 POPULATION_SIZE = 100
 MUTATION_RATE = 0.01
 TOURNAMENT_SELECTION_SIZE = 40
