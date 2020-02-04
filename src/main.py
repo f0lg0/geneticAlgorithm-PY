@@ -6,7 +6,7 @@ from displayBanner import displayBanner, choice
 TARGET = "genetic algorithm"
 INDIVIDUAL_SIZE = len(TARGET)
 POPULATION_SIZE = 100
-MUTATION_RATE = 0.01
+MUTATION_RATE = 0.1
 TOURNAMENT_SELECTION_SIZE = 40
 
 KEYS = 'abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ'
@@ -51,30 +51,32 @@ class GeneticAlgorithm:
 		while i < TOURNAMENT_SELECTION_SIZE:
 			tournament_pop.getPopulation().append(pop.getPopulation()[random.randrange(0, POPULATION_SIZE)])
 			i += 1
-			tournament_pop.getPopulation().sort(key = lambda x: x.calculateFitness(), reverse = True)
+			
+		tournament_pop.getPopulation().sort(key = lambda x: x.calculateFitness(), reverse = True)
 		return tournament_pop
 
 	def reproduction(self, pop):
 		for i in range(len(pop.getPopulation())):
-			self._partnerA = self.selectTournamentPopulation(pop).getPopulation()[0]	
-			self._partnerB = self.selectTournamentPopulation(pop).getPopulation()[1]	
+			partnerA = self.selectTournamentPopulation(pop).getPopulation()[0]	
+			partnerB = self.selectTournamentPopulation(pop).getPopulation()[1]	
 
-			self._child = self.crossover(self._partnerA, self._partnerB)
-			self.mutate(pop)
+			child = self.crossover(partnerA, partnerB)
+			
 
-			pop.getPopulation()[i] = self._child
+			pop.getPopulation()[i] = child
+		self.mutate(pop)
 		
 	def crossover(self, parentA, parentB):
-		self._child = Individual()
-		self._midpoint = random.randrange(0, INDIVIDUAL_SIZE)
+		child = Individual()
+		midpoint = random.randrange(0, INDIVIDUAL_SIZE)
 
 		for i in range(len(TARGET)):
-			if i < self._midpoint:
-				self._child.getDNA()[i] = parentA.getDNA()[i]
+			if i < midpoint:
+				child.getDNA()[i] = parentA.getDNA()[i]
 			else:
-				self._child.getDNA()[i] = parentB.getDNA()[i]
+				child.getDNA()[i] = parentB.getDNA()[i]
 
-		return self._child
+		return child
 
 	def mutate(self, pop):
 		for x in pop.getPopulation():
