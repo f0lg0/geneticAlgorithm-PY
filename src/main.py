@@ -50,24 +50,24 @@ class GeneticAlgorithm:
 
 	def reproduction(self, pop):
 		for i in range(len(pop.getPopulation())):
-			self._partnerA = self.selectTournamentPopulation(pop).getPopulation()[0]	
-			self._partnerB = self.selectTournamentPopulation(pop).getPopulation()[1]	
+			partnerA = self.selectTournamentPopulation(pop).getPopulation()[0]	
+			partnerB = self.selectTournamentPopulation(pop).getPopulation()[1]	
 
-			self._child = self.crossover(self._partnerA, self._partnerB)
+			child = self.crossover(partnerA, partnerB)
 			self.mutate(pop)
 
-			pop.getPopulation()[i] = self._child
+			pop.getPopulation()[i] = child
 		
 	def crossover(self, parentA, parentB):
-		self._child = Individual()
-		self._midpoint = random.randrange(0, INDIVIDUAL_SIZE)
+		child = Individual()
+		midpoint = random.randrange(0, INDIVIDUAL_SIZE)
 		
-		for i in range(self._midpoint):
-			self._child.getDNA()[i] = parentA.getDNA()[i]
-		for i in range(self._midpoint, len(TARGET)):
-			self._child.getDNA()[i] = parentB.getDNA()[i]
+		for i in range(midpoint):
+			child.getDNA()[i] = parentA.getDNA()[i]
+		for i in range(midpoint, len(TARGET)):
+			child.getDNA()[i] = parentB.getDNA()[i]
 
-		return self._child
+		return child
 
 	def mutate(self, pop):
 		for x in pop.getPopulation():
