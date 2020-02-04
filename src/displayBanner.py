@@ -1,5 +1,5 @@
 def displayBanner():
-    banner = open('./banner/banner.txt', 'r')
+    banner = open('./banner/banner.txt', 'r', encoding='utf8')
     print(banner.read())
 
 def choice():
