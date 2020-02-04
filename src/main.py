@@ -13,28 +13,23 @@ KEYS = 'abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
 class Individual:
 	def __init__(self):
-		self._dna = []
+		self._dna = random.choices(KEYS, k=INDIVIDUAL_SIZE)
 		self._fitness = 0
-
-		i = 0
-		while i < INDIVIDUAL_SIZE:
-			self._dna.append(random.choice(KEYS))
-			i += 1
 
 	def getDNA(self):
 		return self._dna
 
 	def calculateFitness(self):
 		self._score = 0
-		for i in range(self._dna.__len__()):
-			if self._dna[i] == TARGET[i]:
+		for own_letter, target_letter in zip(self._dna, TARGET):
+			if own_letter == target_letter:
 				self._score += 1
 
-		self._fitness = self._score / TARGET.__len__()
+		self._fitness = self._score / len(TARGET)
 		return self._fitness
 
 	def __str__(self):
-		return self._dna.__str__()
+		return str(self._dna)
 
 class Population:
 	def __init__(self, size):
@@ -60,7 +55,7 @@ class GeneticAlgorithm:
 		return tournament_pop
 
 	def reproduction(self, pop):
-		for i in range(pop.getPopulation().__len__()):
+		for i in range(len(pop.getPopulation())):
 			self._partnerA = self.selectTournamentPopulation(pop).getPopulation()[0]	
 			self._partnerB = self.selectTournamentPopulation(pop).getPopulation()[1]	
 
@@ -73,7 +68,7 @@ class GeneticAlgorithm:
 		self._child = Individual()
 		self._midpoint = random.randrange(0, INDIVIDUAL_SIZE)
 
-		for i in range(TARGET.__len__()):
+		for i in range(len(TARGET)):
 			if i < self._midpoint:
 				self._child.getDNA()[i] = parentA.getDNA()[i]
 			else:
@@ -96,10 +91,8 @@ def printPopulation(pop, genNumber):
 	print("Generation #", genNumber, "| Fittest individual fitness: ", pop.getPopulation()[0].calculateFitness())
 	print("Target phrase:", TARGET)
 	print("==========================================================")
-	i = 0
-	for x in pop.getPopulation():
+	for i, x in enumerate(pop.getPopulation()):
 		print("Individual #", i, ":", ''.join(x.getDNA()), "| Fitness: ", x.calculateFitness())
-		i += 1
 	print()
 
 def main():
