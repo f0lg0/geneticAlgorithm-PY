@@ -1,8 +1,7 @@
 import random
+import time
 from displayBanner import displayBanner, choice
 
-displayBanner()
-choice()
 
 TARGET = "genetic algorithm"
 INDIVIDUAL_SIZE = TARGET.__len__()
@@ -103,17 +102,25 @@ def printPopulation(pop, genNumber):
 		i += 1
 	print()
 
-population = Population(POPULATION_SIZE)
-population.getPopulation().sort(key = lambda x: x.calculateFitness(), reverse = True)
-printPopulation(population, 0)
+def main():
+	displayBanner()
+	time.sleep(2)
+	choice()
 
-algo = GeneticAlgorithm()
-
-generationNumber = 1
-while population.getPopulation()[0].calculateFitness() < 1:
-	algo.evolve(population)
+	population = Population(POPULATION_SIZE)
 	population.getPopulation().sort(key = lambda x: x.calculateFitness(), reverse = True)
-	printPopulation(population, generationNumber)
-	generationNumber += 1
+	printPopulation(population, 0)
 
-print("Simulation terminated, target reached")
+	algo = GeneticAlgorithm()
+
+	generationNumber = 1
+	while population.getPopulation()[0].calculateFitness() < 1:
+		algo.evolve(population)
+		population.getPopulation().sort(key = lambda x: x.calculateFitness(), reverse = True)
+		printPopulation(population, generationNumber)
+		generationNumber += 1
+
+	print("Simulation terminated, target reached")
+
+if __name__ == "__main__":
+	main()

@@ -1,8 +1,6 @@
-import time
 def displayBanner():
     banner = open('./banner/banner.txt', 'r')
     print(banner.read())
-    time.sleep(2)
 
 def choice():
     while True:
