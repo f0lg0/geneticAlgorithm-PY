@@ -35,10 +35,8 @@ class Population:
 	def __init__(self, size):
 		self._population = []
 
-		i = 0
-		while i < size:
+		for i in range(size):
 			self._population.append(Individual())
-			i += 1
 
 	def getPopulation(self):
 		return self._population
@@ -46,12 +44,8 @@ class Population:
 class GeneticAlgorithm:
 	def selectTournamentPopulation(self, pop):
 		tournament_pop = Population(0)
-
-		i = 0
-		while i < TOURNAMENT_SELECTION_SIZE:
-			tournament_pop.getPopulation().append(pop.getPopulation()[random.randrange(0, POPULATION_SIZE)])
-			i += 1
-			tournament_pop.getPopulation().sort(key = lambda x: x.calculateFitness(), reverse = True)
+		tournament_pop.getPopulation().extend(random.choices(pop.getPopulation(), k=TOURNAMENT_SELECTION_SIZE))
+		tournament_pop.getPopulation().sort(key = lambda x: x.calculateFitness(), reverse = True)
 		return tournament_pop
 
 	def reproduction(self, pop):
@@ -67,12 +61,11 @@ class GeneticAlgorithm:
 	def crossover(self, parentA, parentB):
 		self._child = Individual()
 		self._midpoint = random.randrange(0, INDIVIDUAL_SIZE)
-
-		for i in range(len(TARGET)):
-			if i < self._midpoint:
-				self._child.getDNA()[i] = parentA.getDNA()[i]
-			else:
-				self._child.getDNA()[i] = parentB.getDNA()[i]
+		
+		for i in range(self._midpoint):
+			self._child.getDNA()[i] = parentA.getDNA()[i]
+		for i in range(self._midpoint, len(TARGET)):
+			self._child.getDNA()[i] = parentB.getDNA()[i]
 
 		return self._child
 
