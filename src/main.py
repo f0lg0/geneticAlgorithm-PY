@@ -51,7 +51,7 @@ class GeneticAlgorithm:
 		return tournament_pop
 
 	def reproduction(self, pop):
-		for i in range(len(pop.getPopulation()):
+		for i in range(len(pop.getPopulation())):
 			self._partnerA = self.selectTournamentPopulation(pop).getPopulation()[0]	
 			self._partnerB = self.selectTournamentPopulation(pop).getPopulation()[1]	
 
