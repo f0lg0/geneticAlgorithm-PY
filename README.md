@@ -13,4 +13,4 @@ Feel free to play with this code and to criticize my work by giving me advice. J
 Resize your terminal window to a pretty big size, output is going to occupy a lot of space.
 
 ## Thanks to
-Daniel Shiffman and his amazing "The Nature of Code" book!
+Daniel Shiffman and his amazing "The Nature of Code" (chapter 9) book!
