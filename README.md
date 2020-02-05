@@ -1,4 +1,4 @@
-# geneticAlgorihtm-1
+# geneticAlgorithm-1
 Application of a Genetic Algorithm to the "Infinite monkey theorem"
 
 ## Run
