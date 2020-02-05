@@ -2,7 +2,6 @@ import random
 import time
 from displayBanner import displayBanner, choice
 
-
 TARGET = "genetic algorithm"
 INDIVIDUAL_SIZE = len(TARGET)
 POPULATION_SIZE = 100
@@ -14,22 +13,27 @@ KEYS = 'abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 class Individual:
 	def __init__(self):
 		self._dna = random.choices(KEYS, k=INDIVIDUAL_SIZE)
-		self._fitness = 0
+		self._fitness = -1
+		self._score = -1
 
 	def getDNA(self):
+		self._fitness = -1
+		self._score = -1
 		return self._dna
 
-	def calculateFitness(self):
-		self._score = 0
-		for own_letter, target_letter in zip(self._dna, TARGET):
-			if own_letter == target_letter:
-				self._score += 1
+	@property
+	def fitness(self):
+		if self._score == -1:	
+			self._score = 0
+			for own_letter, target_letter in zip(self._dna, TARGET):
+				if own_letter == target_letter:
+					self._score += 1
 
-		self._fitness = self._score / len(TARGET)
+			self._fitness = self._score / len(TARGET)
 		return self._fitness
 
 	def __str__(self):
-		return str(self._dna)
+		return "".join(self._dna)
 
 class Population:
 	def __init__(self, size):
@@ -52,7 +56,7 @@ class GeneticAlgorithm:
 			tournament_pop.getPopulation().append(pop.getPopulation()[random.randrange(0, POPULATION_SIZE)])
 			i += 1
 			
-		tournament_pop.getPopulation().sort(key = lambda x: x.calculateFitness(), reverse = True)
+		tournament_pop.getPopulation().sort(key = lambda x: x.fitness, reverse = True)
 		return tournament_pop
 
 	def reproduction(self, pop):
@@ -90,11 +94,11 @@ class GeneticAlgorithm:
 # =============================================
 def printPopulation(pop, genNumber):
 	print("==========================================================")
-	print("Generation #", genNumber, "| Fittest individual fitness: ", pop.getPopulation()[0].calculateFitness())
+	print("Generation #", genNumber, "| Fittest individual fitness: ", pop.getPopulation()[0].fitness)
 	print("Target phrase:", TARGET)
 	print("==========================================================")
 	for i, x in enumerate(pop.getPopulation()):
-		print("Individual #", i, ":", ''.join(x.getDNA()), "| Fitness: ", x.calculateFitness())
+		print("Individual #", i, ":", ''.join(x.getDNA()), "| Fitness: ", x.fitness)
 	print()
 
 def main():
@@ -103,15 +107,15 @@ def main():
 	choice()
 
 	population = Population(POPULATION_SIZE)
-	population.getPopulation().sort(key = lambda x: x.calculateFitness(), reverse = True)
+	population.getPopulation().sort(key = lambda x: x.fitness, reverse = True)
 	printPopulation(population, 0)
 
 	algo = GeneticAlgorithm()
 
 	generationNumber = 1
-	while population.getPopulation()[0].calculateFitness() < 1:
+	while population.getPopulation()[0].fitness < 1:
 		algo.evolve(population)
-		population.getPopulation().sort(key = lambda x: x.calculateFitness(), reverse = True)
+		population.getPopulation().sort(key = lambda x: x.fitness, reverse = True)
 		printPopulation(population, generationNumber)
 		generationNumber += 1
 
