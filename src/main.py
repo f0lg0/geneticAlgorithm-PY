@@ -39,10 +39,8 @@ class Population:
 	def __init__(self, size):
 		self._population = []
 
-		i = 0
-		while i < size:
+		for i in range(size):
 			self._population.append(Individual())
-			i += 1
 
 	def getPopulation(self):
 		return self._population
@@ -74,11 +72,8 @@ class GeneticAlgorithm:
 		child = Individual()
 		midpoint = random.randrange(0, INDIVIDUAL_SIZE)
 
-		for i in range(len(TARGET)):
-			if i < midpoint:
-				child.getDNA()[i] = parentA.getDNA()[i]
-			else:
-				child.getDNA()[i] = parentB.getDNA()[i]
+		child.getDNA()[:midpoint] = parentA.getDNA()[:midpoint]
+		child.getDNA()[midpoint:] = parentB.getDNA()[midpoint:]
 
 		return child
 
@@ -107,16 +102,17 @@ def main():
 	choice()
 
 	population = Population(POPULATION_SIZE)
-	population.getPopulation().sort(key = lambda x: x.fitness, reverse = True)
-	printPopulation(population, 0)
 
 	algo = GeneticAlgorithm()
 
-	generationNumber = 1
-	while population.getPopulation()[0].fitness < 1:
-		algo.evolve(population)
+	generationNumber = 0
+	while True:
 		population.getPopulation().sort(key = lambda x: x.fitness, reverse = True)
 		printPopulation(population, generationNumber)
+
+		if population.getPopulation()[0].fitness >= 1:
+			break	
+		algo.evolve(population)
 		generationNumber += 1
 
 	print("Simulation terminated, target reached")
